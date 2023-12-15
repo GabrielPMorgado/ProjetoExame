@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+#logoutBtn {
+  background-color: #dc3545;
+}
+
+    </style>
+</head>
+<body>
+    <body>
+        <div class="container">
+          <h2>Cadastro de Interessados</h2>
+          <form id="cadastroForm">
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input type="text" id="nome" name="nome" required>
+              <span id="nomeError" class="error"></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+              <span id="emailError" class="error"></span>
+            </div>
+            <div class="form-group">
+              <label for="telefone">Telefone:</label>
+              <input type="tel" id="telefone" name="telefone" required>
+              <span id="telefoneError" class="error"></span>
+            </div>
+            <button type="submit">Cadastrar</button>
+          </form>
+      
+          <hr>
+      
+          <h2>Login</h2>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">Email:</label>
+              <input type="email" id="loginEmail" name="loginEmail" required>
+            </div>
+            <button type="submit">Login</button>
+          </form>
+      
+          <button id="logoutBtn" style="display: none;">Logout</button>
+        </div>      
+        <script>
+            // Lista de usuários cadastrados (simulação)
+let users = [];
+
+// Cadastro de interessados
+document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  let isValid = true;
+
+  // Validando nome (deve ter no mínimo 3 caracteres)
+  if (nome.length < 3) {
+    document.getElementById('nomeError').innerText = 'Nome deve ter pelo menos 3 caracteres';
+    isValid = false;
+  } else {
+    document.getElementById('nomeError').innerText = '';
+  }
+
+  // Validando email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    document.getElementById('emailError').innerText = 'Email inválido';
+    isValid = false;
+  } else {
+    document.getElementById('emailError').innerText = '';
+  }
+
+  // Validando telefone (deve conter apenas números e ter entre 8 e 15 caracteres)
+  const telefoneRegex = /^\d{8,15}$/;
+  if (!telefoneRegex.test(telefone)) {
+    document.getElementById('telefoneError').innerText = 'Telefone inválido';
+    isValid = false;
+  } else {
+    document.getElementById('telefoneError').innerText = '';
+  }
+
+  // Se todos os campos são válidos, pode prosseguir com o cadastro
+  if (isValid) {
+    // Adicionando o usuário à lista (simulação de cadastro)
+    const newUser = { nome, email, telefone };
+    users.push(newUser);
+    console.log('Cadastro realizado com sucesso!', newUser);
+
+    // Resetando o formulário após o cadastro
+    document.getElementById('cadastroForm').reset();
+  }
+});
+
+// Login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const loginEmail = document.getElementById('loginEmail').value.trim();
+
+  // Verificando se o email existe na lista de usuários
+  const userExists = users.some(user => user.email === loginEmail);
+
+  if (userExists) {
+    // Simulando login bem-sucedido
+    console.log('Login bem-sucedido!', loginEmail);
+    document.getElementById('logoutBtn').style.display = 'block';
+    document.getElementById('loginForm').reset();
+  } else {
+    console.log('Email não encontrado!');
+    // Pode exibir uma mensagem de erro ao usuário
+  }
+});
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', function() {
+  // Simulando logout
+  console.log('Logout realizado!');
+  document.getElementById('logoutBtn').style.display = 'none';
+});
+
+        </script>
+</body>
+</html>
