@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/GabrielPMorgado/ProjetoExame/issues"
   },
-  "homepage": "https://github.com/GabrielPMorgado/ProjetoExame#readme"
+  "homepage": "https://github.com/GabrielPMorgado/ProjetoExame#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
